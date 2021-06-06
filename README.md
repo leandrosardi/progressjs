@@ -53,7 +53,7 @@ All these files are included in this project. You can download them from this pa
 
 *(pending to add screesnhot here)*
 
-# 3. Cancelling Process
+# 2. Cancelling Process
 
 ```html
 <script>
@@ -61,7 +61,7 @@ All these files are included in this project. You can download them from this pa
 </script>
 ```
 
-# 4. Getting the Progress Status
+# 3. Getting the Progress Status
 
 ```html
 <script>
@@ -71,9 +71,9 @@ All these files are included in this project. You can download them from this pa
 </script>
 ```
 
-# 5. Event Handling
+# 4. Event Handling
 
-## 5.1. Catching AJAX Call Completion
+## 4.1. Catching AJAX Call Completion
 
 Catching when each AJAX call has been completed successfully.
 
@@ -105,7 +105,7 @@ Catching when each AJAX call has been completed successfully.
 </script>
 ```
 
-## 5.2. Catching AJAX Call Failure
+## 4.2. Catching AJAX Call Failure
 
 Catching when one AJAX call has failed because a communication problem.
 
@@ -140,12 +140,12 @@ Catching when one AJAX call has failed because a communication problem.
 </script>
 ```
 
-# 6. Appendix: Progress.Js Internals
+# 5. Appendix: Progress.Js Internals
 
 Here are 2 examples about 2 wrong ways about how to run a pool of AJAX calls.
 Finally, at the end, there is an example of the right way to do it.
 
-## 6.1. Wrong Way 1: Launching Many AJAX Calls in Parallel
+## 5.1. Wrong Way 1: Launching Many AJAX Calls in Parallel
 
 This appreach generates an overload at the server side.
 
@@ -171,7 +171,7 @@ array_of_data_to_submit = [
 array_of_data_to_submit.forEach(submitData);
 ```
 
-## 6.2. Wrong Way 2: Recursive AJAX Calls 
+## 5.2. Wrong Way 2: Recursive AJAX Calls 
 
 This appreach generates an overload at the client side (the browser).
 
@@ -204,7 +204,7 @@ array_of_data_to_submit = [
 submitData(0);
 ```
 
-## 6.3. The Right Way
+## 5.3. The Right Way
 
 Performing the AJAX calls one by one, using a global semaphore variable
 
