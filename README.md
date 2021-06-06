@@ -6,7 +6,7 @@ The **Progress.Js** is a JavaScript library to process a large pool of AJAX call
 
 - recursive AJAX calls.
 
-You can find examples of the bad practicess listed above [here](./#6.-appendix:-progress.js-internals).
+You can find examples of the bad practicess listed above [here](#6-appendix-progressjs-internals).
 
 Additionally, you can query the status of the progress on the run, in order to update user interface elements like a progress-bar or a progress-counter.
 
@@ -142,8 +142,10 @@ Catching when one AJAX call has failed because a communication problem.
 
 # 6. Appendix: Progress.Js Internals
 
+Here are 2 examples about 2 wrong ways about how to run a pool of AJAX calls.
+Finally, at the end, there is an example of the right way to do it.
 
-## 6.1. One Wrong 1: Launching Many AJAX Calls in Parallel
+## 6.1. Wrong Way 1: Launching Many AJAX Calls in Parallel
 
 This appreach generates an overload at the server side.
 
