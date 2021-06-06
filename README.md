@@ -6,106 +6,12 @@ The **Progress.Js** is a JavaScript library to process a large pool of AJAX call
 
 - recursive AJAX calls.
 
+You can find examples of the bad practicess listed above [here](./#6.-appendix:-progress.js-internals).
+
 Additionally, you can query the status of the progress on the run, in order to update user interface elements like a progress-bar or a progress-counter.
 
 *(pending)* You can find a [live example](https://connectionsphere.com/developers/progressjs) of **Progress.Js** here: [https://connectionsphere.com/developers/progressjs](https://connectionsphere.com/developers/progressjs)
 
-## One Wrong Way: Launching Many AJAX Calls in Parallel
-
-This appreach generates an overload at the server side.
-
-**Example:**
-
-```javascript
-function submitData(data) {
-	return $.ajax({
-		url: './superhero_secret.json',
-		type: 'GET',
-		data: data,
-	});
-}
-
-// Array of hashes. Each hash is the data to send to the access point at every step of the progress.
-array_of_data_to_submit = [ 
-    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
-    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
-]
-
-// Call the AJAX
-array_of_data_to_submit.forEach(submitData);
-```
-
-## Another Wrong Way: Recursive AJAX Calls 
-
-This appreach generates an overload at the client side (the browser).
-
-**Example:**
-
-```javascript
-function submitData(j) {
-	return $.ajax({
-		url: './superhero_secret.json',
-		type: 'GET',
-		data: array_of_data_to_submit[j],
-		success: function(result,status,xhr) {
-			if ( j < array_of_data_to_submit.size ) { 
-				setTimeout( function() { submitData(j+1) }, 5);
-			} else {
-                // We have done with the array.
-			}	
-		}
-	});
-}
-
-// Array of hashes. Each hash is the data to send to the access point at every step of the progress.
-array_of_data_to_submit = [ 
-    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
-    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
-]
-
-// Call the 
-submitData(0);
-```
-
-## The Right Way
-
-Performing the AJAX calls one by one, using a global semaphore variable
-
-```javascript
-var i = 0;
-
-function submitData(data, j) {
-    // loop until it is the time to process the AJAX number j.
-	while (i<j) { 
-        setTimeout(function() {
-            console.log('waiting i=='+j.toString());
-        }, 1000);
-    }
-    return $.ajax({
-		url: './superhero_secret.json',
-		type: 'GET',
-		data: data,
-		success: function(result,status,xhr) {
-			i += 1;	
-		},
-		error: function(result,status,xhr) {
-		    // inform process cancelation and error description	
-		},
-	});
-}
-
-function submitBulkData(array_of_data_to_submit) {
-    array_of_data_to_submit.forEach(submitData);
-}
-
-submitBulkData([ 
-    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
-    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
-]);
-```
 
 
 # 1. Getting Started
@@ -128,7 +34,7 @@ All these files are included in this project. You can download them from this pa
 ```html
 <input type='button' id='start' value='start' />
 <script>
-	$(document).ready(function() {
+    $(document).ready(function() {
         $('#start').click(function() {
             // returns an unique-identifier (a.k.a. handler) code to handle this pool of AJAX calls.
             handler = progressJs.start({
@@ -141,7 +47,7 @@ All these files are included in this project. You can download them from this pa
                 ]
             });
         })
-	});
+    });
 </script>
 ```
 
@@ -208,10 +114,10 @@ Catching when one AJAX call has failed because a communication problem.
 ```html
 <input type='button' id='start' value='start' />
 <script>
-	$(document).ready(function() {
+    $(document).ready(function() {
         $('#start').click(function() {
             // returns an unique-identifier (a.k.a. handler) code to handle this pool of AJAX calls.
-            handler = progressJs.start({
+                handler = progressJs.start({
                 url: './superhero_secret_wrong_url.json', // URL to send an AJAX POST call at every step of the progress.
                 datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
                     { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
@@ -230,9 +136,122 @@ Catching when one AJAX call has failed because a communication problem.
                 }
             });
         })
-	});
+    });
 </script>
 ```
 
+# 6. Appendix: Progress.Js Internals
+
+
+## 6.1. One Wrong 1: Launching Many AJAX Calls in Parallel
+
+This appreach generates an overload at the server side.
+
+**Example:**
+
+```javascript
+function submitData(data) {
+	return $.ajax({
+		url: './superhero_secret.json',
+		type: 'GET',
+		data: data,
+	});
+}
+
+// Array of hashes. Each hash is the data to send to the access point at every step of the progress.
+array_of_data_to_submit = [ 
+    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
+    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
+]
+
+// Call the AJAX
+array_of_data_to_submit.forEach(submitData);
+```
+
+## 6.2. Wrong Way 2: Recursive AJAX Calls 
+
+This appreach generates an overload at the client side (the browser).
+
+**Example:**
+
+```javascript
+function submitData(j) {
+	return $.ajax({
+		url: './superhero_secret.json',
+		type: 'GET',
+		data: array_of_data_to_submit[j],
+		success: function(result,status,xhr) {
+			if ( j < array_of_data_to_submit.size ) { 
+				setTimeout( function() { submitData(j+1) }, 5);
+			} else {
+                // We have done with the array.
+			}	
+		}
+	});
+}
+
+// Array of hashes. Each hash is the data to send to the access point at every step of the progress.
+array_of_data_to_submit = [ 
+    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
+    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
+]
+
+// Call the 
+submitData(0);
+```
+
+## 6.3. The Right Way
+
+Performing the AJAX calls one by one, using a global semaphore variable
+
+```javascript
+var i = 0;
+
+function submitData(data, j) {
+    // loop until it is the time to process the AJAX number j.
+	while (i<j) { 
+        setTimeout(function() {
+            console.log('waiting i=='+j.toString());
+        }, 1000);
+    }
+    return $.ajax({
+		url: './superhero_secret.json',
+		type: 'GET',
+		data: data,
+		success: function(result,status,xhr) {
+			i += 1;	
+		},
+		error: function(result,status,xhr) {
+		    // inform process cancelation and error description	
+		},
+	});
+}
+
+function submitBulkData(array_of_data_to_submit) {
+    array_of_data_to_submit.forEach(submitData);
+}
+
+submitBulkData([ 
+    { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+    { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
+    { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
+]);
+```
+
+
+# Additional Notes
+The **Filters.Js** is used at [**ExpandedVenture**](https://expandedventure.com/expandedventure) to develop different UI/UX features.
+
+The **Filters.Js** library is just starting on Jun-2021, and more functions will be added as needed.
+
+The **Filters.Js** library has been written following the [**W3C JavaScript Best Practices**](https://www.w3.org/community/webed/wiki/JavaScript_best_practices).
+
+# Disclaimer
+Use at your own risk. The use of the software and scripts downloaded on this site is done at your own discretion and risk and with agreement that you will be solely responsible for any damage to any computer system or loss of data that results from such activities.
+
+# Maintainer
+Leandro Daniel Sardi <leandro((dot))sardi((@))expandedventure.com>
 
 
