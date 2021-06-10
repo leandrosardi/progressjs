@@ -30,7 +30,29 @@
 		<div class="control-group span8" >
 			<textarea style="width: 750px;" rows="25">
 
-
+				
+				1. Create the progress bar.
+				$(document).ready(function() {
+					$('#start').click(function() {
+						// returns an unique-identifier (a.k.a. handler) code to handle this pool of AJAX calls.
+						handler = progressJs.start({
+							url: './superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
+							type: 'GET', 
+						datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
+							{ first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+							{ first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
+							{ first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
+						]
+					});
+				})
+				
+				2. Cancelling Process
+				 progressJs.cencel(handler);
+				 
+				 3. Getting the Progress Status
+				console.log('count:' + progressJs.count(handler)); // number of AJAX calls requested
+				console.log('completed:' + progressJs.completed(handler)); // number of AJAX calls completed
+				console.log('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is not to handle the responses from the access point reoprting any issue at the server side.
 
 			</textarea>
 		</div>
