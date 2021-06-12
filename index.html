@@ -35,13 +35,13 @@
 			<button id='start' class='start-button btn btn-mini btn-blue' type='button'>START</button>
 			<button id='cancel' class='cancel-button btn btn-mini btn-red' type='button'>CANCEL</button>
 
-			<progress id="progress" value="0"></progress>
- 			<span id="display"></span>
+			<!-- <progress id="progress" value="0"></progress> -->
+ 	
 
-			<div class="progress progress-blue" id="prg">
-				<div class="bar"  id="prgs" style="width: 0%;">		
+				<div class="progress progress-blue progress-striped">
+						<div class="bar" id="bar" value=0 style="width: 0%;"></div>
 				</div>
-			</div>
+			
 
 		</div>
 		
@@ -59,23 +59,33 @@
 </body>
 
 <script>
-	
+
 	 $(document).ready(function() {
+
         $('#start').click(function() {
             // returns an unique-identifier (a.k.a. handler) code to handle this pool of AJAX calls.
-           progressJs.start({
-                url: './superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
+           var handler = progressJs.start({
+                url: 'https://zinoui.com/demo/progress-bar/upload.php', // URL to send an AJAX POST call at every step of the progress.
     			type: 'GET', 
                 datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
                     { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
                     { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
                     { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
                 ],
-                success: function(data) {
+                success: function(j,data) {
                     console.log("success func:we get response from jaax is ", data);
+                  
+                    console.log('count:' + progressJs.count(handler)); // number of AJAX calls requested
+		    console.log('completed:' + progressJs.completed(handler)); // number of AJAX calls completed
+		    console.log('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is 
                 },
-                error: function(data) {
+                error: function(j,data) {
+
                 	console.log("errro fun: we get response from jaax is ", data);
+                	
+                	console.log('count:' + progressJs.count(handler)); // number of AJAX calls requested
+		    console.log('completed:' + progressJs.completed(handler)); // number of AJAX calls completed
+		    console.log('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is 
 
                     // j is the index in the array of data hashes.
 
@@ -88,7 +98,19 @@
                 }
 
             });
-        })
+           // progressJs.cancel(handler);
+      //       console.log('count:' + progressJs.count(handler)); // number of AJAX calls requested
+		    // console.log('completed:' + progressJs.completed(handler)); // number of AJAX calls completed
+		    // console.log('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is not to handle the responses from the access point reoprting any issue at the server side.
+
+        });
+
+
+
+           
+              
+
+
     });	
 	
 	
