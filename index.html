@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>
-		Templates.js - Demo Page
+		PROGRESS JS - DEMO LIBRARY
 	</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
@@ -29,14 +29,11 @@
 <body>
 
 
-
 	<div class="row">			
 		<div class="control-group span4" >		
 			<button id='start' class='start-button btn btn-mini btn-blue' type='button'>START</button>
 		
 			<div class="progress progress-blue progress-striped "><div class="bar" id="bar" value=0 style="width: 0%;"></div></div>
-
-
 
 			<button id='countt' class='start-button btn btn-mini btn-blue' type='button'>SHOW COUNT</button>
 			<button id='completedd' class='start-button btn btn-mini btn-green' type='button'>SHOW COMPLETED</button>
@@ -47,43 +44,43 @@
 		<div class="control-group span8" >
 			<textarea style="width: 750px;" rows="25">
 
-				<1. START BUTTON - AJAX REQUEST with SUCCESS AND FAILED RESPONSES>
+			<1. START BUTTON - AJAX REQUEST with SUCCESS AND FAILED RESPONSES>
 
-				var handler = progressJs.start({
-		            url: 'superhero_secret.json',
-					type: 'GET', 
-		            datas: [
-		                { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-		                { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
-		                { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
-		                { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-		                { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' },
-		            ],
-		            success: function(j,data) {
-		                console.log("Success function: ", data);
+						var handler = progressJs.start({
+				            url: 'superhero_secret.json',
+							type: 'GET', 
+				            datas: [
+				                { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+				                { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
+				                { first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
+				                { first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
+				                { first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' },
+				            ],
+				            success: function(j,data) {
+				                console.log("Success function: ", data);
 
-		            },
-		            error: function(j,data) {
+				            },
+				            error: function(j,data) {
 
-		            	console.log("Error function: ", data);
-		            }
+				            	console.log("Error function: ", data);
+				            }
 
-       			 });
+		       			 });
 
 
-       			 <2. SHOW TOTAL COUNT OF REQUESTS >
+    	   	<2. SHOW TOTAL COUNT OF REQUESTS >
 
        			 	 console.log('count:' + progressJs.count(handler)); // number of AJAX calls requested
 
-       			  <3. SHOW TOTAL COMPLETED NO of REQUESTS >
+        	   <3. SHOW TOTAL COMPLETED NO of REQUESTS >
 
        			 	  console.log('completed:' + progressJs.completed(handler)); // number of AJAX calls completed
 
-       			  <4. SHOW TOTAL COMPLETED NO of REQUESTS >
+   	    	  <4. SHOW TOTAL COMPLETED NO of REQUESTS >
 
        			  		console.log('failed:' + progressJs.failed(handler));
-
-       			   <5. To Cancel the REQUESTS >
+   
+   			   <5. To Cancel the REQUESTS >
 
        			  		 $.each( handler, function( key, value ) {
 							 progressJs.cancel(value);
