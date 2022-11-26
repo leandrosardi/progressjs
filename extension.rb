@@ -26,6 +26,6 @@ BlackStack::Extensions::add ({
 
     # define JS files to add to the header of every page
     :js_files => [
-        '/filtersjs/javascripts/progress.min.js',
+        '/progressjs/javascripts/progress.min.js',
     ],
 })
