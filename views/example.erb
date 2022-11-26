@@ -14,8 +14,11 @@
 					<button id='countt' class='start-button btn btn-mini btn-blue' type='button'>SHOW COUNT</button>
 					<button id='completedd' class='start-button btn btn-mini btn-green' type='button'>SHOW COMPLETED</button>
 					<button id='failedd' class='start-button btn btn-mini btn-red' type='button'>SHOW FAILED</button>
+					<div>
+						<pre id='results' name='results'>Process Result:</pre>
+					</div>
 				</div>
-				
+
 				<br/>
 
 				<div class="box">
@@ -103,11 +106,14 @@ $.each( handler, function( key, value ) {
 						{ first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' },
 					],
 					success: function(j,data) {
-						alert("Success function: " + data);
-
+						o = $('#results'); 
+						o.text(o.text() + "\n");
+						o.text(o.text() + j.toString()+"... success");
 					},
 					error: function(j,data) {
-						alert("Error function: " + data.status);
+						o = $('#results'); 
+						o.text(o.text() + "\n");
+						o.text(o.text() + j.toString()+"... error");
 					}
 				});
 
@@ -126,7 +132,7 @@ $.each( handler, function( key, value ) {
 				});
 
 				$('#failedd').click(function() {
-					console.log('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is not to 
+					alert('failed:' + progressJs.failed(handler)); // number of AJAX calls failed due a communication issue. This method is not to 
 				});
 			});
 		});	
