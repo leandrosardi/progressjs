@@ -95,29 +95,38 @@ $.each( handler, function( key, value ) {
 
 		$(document).ready(function() {
 			$('#start').click(function() {
+			// initialize progress bar
+			document.getElementById("bar").style.width = 0 + "%";
 			// disable the start button
-
+			document.getElementById("start").disabled = true;
+			document.getElementById("start").innerHTML = 'processing...';	
 			// start the ajax sequence
 			var handler = progressJs.start({
 					url: '/progressjs/superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
-					type: 'post', // Type of the AJAX call.
+					method: 'get', // Type of the AJAX call.
 					delay_between_calls: 1000, // 1 second.
 					datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
 						{ first_name: 'Clark', last_name: 'Kent' }, 
-						//{ first_name: 'Bruce', last_name: 'Wayne' }, 
-						//{ first_name: 'Peter', last_name: 'Parker' }, 
-						//{ first_name: 'Samuel', last_name: 'Smith' },
+						{ first_name: 'Bruce', last_name: 'Wayne' }, 
+						{ first_name: 'Peter', last_name: 'Parker' }, 
+						{ first_name: 'Maxwell', last_name: 'Smart' },
 					],
 					success: function(j, data, response) {
 						o = $('#results'); 
 						o.text(o.text() + "\n");
-						o.text(o.text() + j.toString()+"."+data['first_name']+" "+data['last_name']+" is... " );//+JSON.parse(response).result);
-alert(response.result);
+						o.text(o.text() + j.toString()+"."+data['first_name']+" "+data['last_name']+" is... "+response.result);
 					},
 					error: function(j, data, exeption) {
 						o = $('#results'); 
 						o.text(o.text() + "\n");
 						o.text(o.text() + j.toString()+"... unknown error");
+					},
+					done: function(msg) {
+						// initialize the progress bar
+						document.getElementById("bar").style.width = 100 + "%";
+						// enable the start button
+						document.getElementById("start").disabled = false;
+						document.getElementById("start").innerHTML = 'Start';				
 					}
 				});
 
