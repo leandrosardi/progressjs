@@ -95,25 +95,29 @@ $.each( handler, function( key, value ) {
 
 		$(document).ready(function() {
 			$('#start').click(function() {
+			// disable the start button
+
+			// start the ajax sequence
 			var handler = progressJs.start({
-					url: 'superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
-					type: 'POST', // Type of the AJAX call.
+					url: '/progressjs/superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
+					type: 'post', // Type of the AJAX call.
+					delay_between_calls: 1000, // 1 second.
 					datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
-						{ first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-						{ first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' }, 
-						{ first_name: 'Peter', last_name: 'Parker', role: 'Spiderman' }, 
-						{ first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
-						{ first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' },
+						{ first_name: 'Clark', last_name: 'Kent' }, 
+						//{ first_name: 'Bruce', last_name: 'Wayne' }, 
+						//{ first_name: 'Peter', last_name: 'Parker' }, 
+						//{ first_name: 'Samuel', last_name: 'Smith' },
 					],
-					success: function(j,data) {
+					success: function(j, data, response) {
 						o = $('#results'); 
 						o.text(o.text() + "\n");
-						o.text(o.text() + j.toString()+"... success");
+						o.text(o.text() + j.toString()+"."+data['first_name']+" "+data['last_name']+" is... " );//+JSON.parse(response).result);
+alert(response.result);
 					},
-					error: function(j,data) {
+					error: function(j, data, exeption) {
 						o = $('#results'); 
 						o.text(o.text() + "\n");
-						o.text(o.text() + j.toString()+"... error");
+						o.text(o.text() + j.toString()+"... unknown error");
 					}
 				});
 
