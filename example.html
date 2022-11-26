@@ -64,10 +64,8 @@ var handler = progressJs.start({
 	],
 	success: function(j,data) {
 		console.log("Success function: ", data);
-
 	},
 	error: function(j,data) {
-
 		console.log("Error function: ", data);
 	}
 });
@@ -117,7 +115,7 @@ $.each( handler, function( key, value ) {
 		$(document).ready(function() {
 			$('#start').click(function() {
 			var handler = progressJs.start({
-					url: 'superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
+					url: './superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
 					type: 'GET', 
 					datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
 						{ first_name: 'Clark', last_name: 'Kent', role: 'Superman' }, 
@@ -127,13 +125,11 @@ $.each( handler, function( key, value ) {
 						{ first_name: 'Bruce', last_name: 'Wayne', role: 'Batman' },
 					],
 					success: function(j,data) {
-						alert("Success function: ", data);
+						alert("Success function: " + data);
 
 					},
 					error: function(j,data) {
-
-						alert("Error function: ", data);
-				
+						alert("Error function: " + data);
 					}
 				});
 

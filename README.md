@@ -1,6 +1,8 @@
+![GitHub issues](https://img.shields.io/github/issues/leandrosardi/progressjs) ![GitHub](https://img.shields.io/github/license/leandrosardi/progressjs) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/leandrosardi/progressjs) ![GitHub last commit](https://img.shields.io/github/last-commit/leandrosardi/progressjs)
+
 # Progress.js
 
-The **Progress.Js** is a JavaScript library to process a large pool of AJAX calls the right way, without fall on bad-practicess like 
+The **Progress.Js** is a JavaScript library to process an array of AJAX calls the right way, without fall on bad-practicess like 
 
 - launching many AJAX calls in parallel; or
 
@@ -10,9 +12,9 @@ You can find examples of the bad practicess listed above [here](#6-appendix-prog
 
 Additionally, you can query the status of the progress on the run, in order to update user interface elements like a progress-bar or a progress-counter.
 
-*(pending)* You can find a [live example](https://connectionsphere.com/developers/progressjs) of **Progress.Js** here: [https://connectionsphere.com/developers/progressjs](https://connectionsphere.com/developers/progressjs)
+[Find a live example here](https://connectionsphere.com/developers/progressjs).
 
-
+**>>>> IF YOU LIKE THIS PROJECT, STAR IT ! <<<<** 
 
 # 1. Getting Started
 Get started in 3 simple steps.
@@ -244,11 +246,9 @@ submitBulkData([
 
 
 # Additional Notes
-The **Filters.Js** is used at [**ExpandedVenture**](https://expandedventure.com/expandedventure) to develop different UI/UX features.
+The **Progress.Js** library is just starting on Jun-2021, and more functions will be added as needed.
 
-The **Filters.Js** library is just starting on Jun-2021, and more functions will be added as needed.
-
-The **Filters.Js** library has been written following the [**W3C JavaScript Best Practices**](https://www.w3.org/community/webed/wiki/JavaScript_best_practices).
+The **Progress.Js** library has been written following the [**W3C JavaScript Best Practices**](https://www.w3.org/community/webed/wiki/JavaScript_best_practices).
 
 # Disclaimer
 Use at your own risk. The use of the software and scripts downloaded on this site is done at your own discretion and risk and with agreement that you will be solely responsible for any damage to any computer system or loss of data that results from such activities.
