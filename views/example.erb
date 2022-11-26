@@ -103,7 +103,7 @@ $.each( handler, function( key, value ) {
 			// start the ajax sequence
 			var handler = progressJs.start({
 					url: '/progressjs/superhero_secret.json', // URL to send an AJAX POST call at every step of the progress.
-					method: 'get', // Type of the AJAX call.
+					method: 'get', // Only 'get' is supported by now.
 					delay_between_calls: 1000, // 1 second.
 					datas: [ // Array of hashes. Each hash is the data to send to the access point at every step of the progress.
 						{ first_name: 'Clark', last_name: 'Kent' }, 
